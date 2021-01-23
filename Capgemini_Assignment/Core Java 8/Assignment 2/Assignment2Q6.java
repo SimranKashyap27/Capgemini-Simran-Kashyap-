@@ -4,27 +4,23 @@ abstract class Persistence {
 class FilePersistence extends Persistence{
     @Override
     public String persist() {
-    	return "FilePersistence";
+    	return "Available";
     }
 }
 class DatabasePersistence extends Persistence{
     @Override
     public String persist() {
-    	return "DatabasePersistence";
+    	return "Available";
     }
 }
-class client{
-	Persistence p1;
-	/*
-	p1 = new DatabasePersistence();
-	//Do some Database work
-	p1 = new FilePersistence();
-	//Do some File work
-	*/
-	
+//Cannot make object of Persistence, because it is a abstract class.
+class client extends Persistence{
+	public String persist() {
+    	return "Available";
+    }
 }
 
+
 public class Assignment2Q6 {
-    public static void main(String[] args) {
-    }
+    public static void main(String[] args) {}
 }
