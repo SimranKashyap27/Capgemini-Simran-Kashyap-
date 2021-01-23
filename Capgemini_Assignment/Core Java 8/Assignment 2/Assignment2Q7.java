@@ -2,200 +2,164 @@ import java.util.Scanner;
 
 abstract class DesertItem {
 
-    abstract public int getCost();
+	abstract public int getCost();
 }
+
 class Candy extends DesertItem {
-	int cost = 60;  //dollars to rupees according to given convention
-	public int getCost() {
-		return cost;
+	int dollar = 60;
+	int count = 0;
+
+	public int addCandies(int candies) {
+		count += candies;
+		return candies;
 	}
-    public int addCandies(int candies){
-    	return candies;
-    }
+
+	public int getCost(int candies) {
+		return dollar * candies / 10;
+	}
+
+	@Override
+	public int getCost() {
+		return 0;
+	}
+
 }
+
 class Cookie extends DesertItem {
-	int cost = 70;  //euros to rupees according to given convention
-	public int getCost() {
-		return cost;
+	int euro = 60;
+	int count = 0;
+
+	public int addCookies(int cookie) {
+		count += cookie;
+		return cookie;
 	}
-    public int addCookies(int candies){
-    	return candies;
-    }
+
+	public int getCost(int cookies) {
+		return euro * cookies / 10;
+	}
+
+	@Override
+	public int getCost() {
+		return 0;
+	}
 }
+
 class IceCream extends DesertItem {
-	int cost = 1;
-	public int getCost() {
-		return cost;
+	int rupees = 100;
+	int count = 0;
+
+	public int addIceCreams(int iceCream) {
+		count += iceCream;
+		return iceCream;
 	}
-    public int addIceCreams(int candies){
-    	return candies;
-    }
+
+	public int getCost(int iceCreams) {
+		return rupees * iceCreams;
+	}
+
+	@Override
+	public int getCost() {
+		return 0;
+	}
 }
+
 public class Assignment2Q7 {
-    public static void main(String[] args) {
-    	Assignment2Q7 obj = new Assignment2Q7();
-    	obj.selectRoles();
-    	
-    }
-    private void selectRoles(){
-    	System.out.println("Select 1 for owner\nSelect 2 for customer");
-    	int choice = 2;
-    	Scanner scan = new Scanner(System.in);
-    	try {
-    		choice = scan.nextInt();
-    	}catch(Exception e) {
-    		e.printStackTrace();
-    	}finally {
-    		scan.close();
-    	}
-    	switch(choice){
-    	case 1:
-    		//owne0 role
-    		roles("owner");
-    		break;
-    	case 2:
-    		//customer role
-    		roles("customer");
-    		break;
-    	default:
-    		System.out.println("Invalid Choice");
-    		break;
-    	}
-    	
-    }
-    private void roles(String role){
-    	if(role.equalsIgnoreCase("owner")) {
-    		//role is owner -> able to add desert Items
-    		addItems();
-    	}else if(role.equalsIgnoreCase("customer")) {
-    		//role is customer -> able to place order
-    		placeOrder();
-    		
-    	}
-    }
-    private void addItems() {
-    	System.out.println("1. Candies\n 2. Cookies\n 3. Ice Cream");
-    	int choice = 1;
-    	Scanner scan = new Scanner(System.in);
-    	try {
-    		choice = scan.nextInt();
-    	}catch(Exception e){
-    		e.printStackTrace();
-    	}finally{
-    		scan.close();
-    	}
-    	switch(choice) {
-    	case 1:
-    		addItemsOperation(1);
-    		break;
-    	case 2:
-    		addItemsOperation(2);
-    		break;
-    	case 3:
-    		addItemsOperation(3);
-    		break;
-    	default:
-    		System.out.println("Invalid choice");
-    		break;
-    	}
-    }
-    private void addItemsOperation(int choice) {
-    	Scanner scan = new Scanner(System.in);
-    	if(choice == 1) {
-    		System.out.println("Enter number of candies");
-    		int quantity = 0;
-			if(scan.hasNext())
-				quantity = scan.nextInt();
-    		Candy can = new Candy();
-    		System.out.println(can.addCandies(quantity));
-    	}else if(choice == 2) {
-    		System.out.println("Enter number of cookies");
-    		int quantity = 0;
-			if(scan.hasNext())
-				quantity = scan.nextInt();
-    		Cookie cok = new Cookie();
-    		System.out.println(cok.addCookies(quantity));
-    	}
-    	else {
-    		System.out.println("Enter number of ice creams");
-    		int quantity = 0;
-			if(scan.hasNext())
-				quantity = scan.nextInt();
-    		IceCream ice = new IceCream();
-    		System.out.println(ice.addIceCreams(quantity));
-    	}
-    	scan.close();
-    }
-    private void placeOrder() {
-    	System.out.println("1. Candies\n 2. Cookies\n 3. Ice Cream");
-    	int choice = 1;
-    	Scanner scan = new Scanner(System.in);
-    	try {
-    		if(scan.hasNext())
-    			choice = scan.nextInt();
-    	}catch(Exception e){
-    		e.printStackTrace();
-    	}finally{
-    		scan.close();
-    	}
-    	switch(choice) {
-    	case 1:
-    		placeOrderOperation(1);
-    		break;
-    	case 2:
-    		placeOrderOperation(2);
-    		break;
-    	case 3:
-    		placeOrderOperation(3);
-    		break;
-    	default:
-    		System.out.println("Invalid choice");
-    	}
-    	
-    }
-    private void placeOrderOperation(int choice) {
-    	Scanner scan = new Scanner(System.in);
-    	DesertItem obj = null;
-    	if(choice ==1) {
-    		System.out.println("Enter quantity");
-    		try {
-    			int quantity = 0;
-    			if(scan.hasNext())
-				quantity = scan.nextInt();
-    			obj = new Candy();
-    			int cash = quantity*obj.getCost();
-    			System.out.println("Pay: "+cash);
-    		}catch(Exception e){
-    			e.printStackTrace();
-    		}
-    		
-    	}else if(choice == 2) {
-    		System.out.println("Enter quantity");
-    		try {
-    			int quantity = 0;
-    			if(scan.hasNext())
-				quantity = scan.nextInt();
-    			obj = new Cookie();
-    			int cash = quantity*obj.getCost();
-    			System.out.println("Pay: "+cash);
-    		}catch(Exception e){
-    			e.printStackTrace();
-    		}
-    		
-    	}else {
-    		System.out.println("Enter quantity");
-    		try {
-    			int quantity = 0;
-    			if(scan.hasNext())
-				quantity = scan.nextInt();
-    			obj = new IceCream();
-    			int cash = quantity*obj.getCost();
-    			System.out.println("Pay: "+cash);
-    		}catch(Exception e){
-    			e.printStackTrace();
-    		}
-    		
-    	}
-    	scan.close();
-    }
+	public static void main(String[] args) {
+		Assignment2Q7 assignObj = new Assignment2Q7();
+		assignObj.selectRoles();
+	}
+	
+	private String role;
+
+	private void selectRoles() {
+		System.out.println("Enter the Role customer or owner?");
+		Scanner sc = new Scanner(System.in);
+		role = sc.nextLine();
+		roles(role);
+	}
+
+	private void roles(String role) {
+		if (role.matches("owner")) {
+			addItems();
+			Scanner sc = new Scanner(System.in);
+			int item = sc.nextInt();
+			addItemsOperation(item);
+		} else {
+			placeOrder();
+			Scanner sc = new Scanner(System.in);
+			int item = sc.nextInt();
+			placeOrderOperation(item);
+		}
+
+	}
+
+	private void addItems() {
+		System.out.println("Select Item to Add : \n1. Candies\n2. Cookies\n3. Ice Creams");
+	}
+
+	private void addItemsOperation(int choice) {
+		Scanner sc = new Scanner(System.in);
+		switch (choice) {
+		case 1:
+			Candy candy = new Candy();
+			System.out.println("How many candies you wanna add?");
+			int candies = sc.nextInt();
+			sc.close();
+			candy.addCandies(candies);
+			System.out.println(candy.count + " candies added");
+			break;
+		case 2:
+			Cookie cookie = new Cookie();
+			System.out.println("How many cookies you wanna add?");
+			int cookies = sc.nextInt();
+			sc.close();
+			cookie.addCookies(cookies);
+			break;
+		case 3:
+			IceCream iceCream = new IceCream();
+			System.out.println("How many iceCreams you wanna add?");
+			int iceCreams = sc.nextInt();
+			sc.close();
+			iceCream.addIceCreams(iceCreams);
+		default:
+			System.out.println("You have entered an invalid choise. Please enter the correct item");
+			roles(role);
+		}
+		
+	}
+
+	private void placeOrder() {
+		System.out.println("Select Item to Place Order: \n1. Candies\n2. Cookies\n3. Ice Creams");
+	}
+
+	private void placeOrderOperation(int choice) {
+		Scanner sc = new Scanner(System.in);
+		switch (choice) {
+		case 1:
+			Candy candy = new Candy();
+			System.out.println("How many candies you wanna buy?");
+			int candies = sc.nextInt();
+			sc.close();
+			System.out.println("Total price of " + candies + " candies is " + candy.getCost(candies) + " rupees");
+			break;
+		case 2:
+			Cookie cookie = new Cookie();
+			System.out.println("How many cookies you wanna buy?");
+			int cookies = sc.nextInt();
+			sc.close();
+			System.out.println("Total price of " + cookies + " cookies is " + cookie.getCost(cookies) + " rupees");
+			break;
+		case 3:
+			IceCream iceCream = new IceCream();
+			System.out.println("How many iceCreams you wanna buy?");
+			int iceCreams = sc.nextInt();
+			sc.close();
+			System.out.println(
+					"Total price of " + iceCreams + " iceCreams is " + iceCream.getCost(iceCreams) + " rupees");
+			break;
+		default:
+			System.out.println("You have entered an invalid choise. Please enter the correct item");
+			roles(role);
+		}
+	}
 }
